@@ -6,17 +6,16 @@ import random
 import sys
 import Shapes
 
-def selectBlock():
-    b = Shapes.straightBlock(screen, 25, colors["Cyan"])
+
+# Selects a random block to spawn
+def select_block():
+    b = Shapes.StraightBlock(colors["Cyan"])
     return b
 
-# pygame.draw.rect(screen, BLUE, (sx, sy, snake_size, snake_size))
 
 pygame.init()
 
-width = 250
-height = 500
-rect_size = 25
+# Keeps track of blocks
 gameBoard = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
              [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
              [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -38,29 +37,26 @@ gameBoard = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
              [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
              [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
-gameover = False
+game_over = False
 
+# Dictionary of colors for the blocks
 colors = {
-    "Cyan" : (0, 255, 255),
-    "Yellow" : (255, 255, 0),
-    "Purple" : (128, 0, 128),
-    "Green" : (0, 255, 0),
-    "Red" : (255, 0, 0),
-    "Blue" : (0, 0, 255)
+    "Cyan": (0, 255, 255),
+    "Yellow": (255, 255, 0),
+    "Purple": (128, 0, 128),
+    "Green": (0, 255, 0),
+    "Red": (255, 0, 0),
+    "Blue": (0, 0, 255)
 }
 
-screen = pygame.display.set_mode((width, height))
-screen.fill((0, 0, 0))
+# Creates the fps clock to give a sense of movement
+clock = pygame.time.Clock()
 
-clock = pygame.time.Clock()  # Creates the fps clock to slow the snake
+while not game_over:
+    block = select_block()
 
-while not gameover:
-
-    block = selectBlock()
-
+    # Runs each "turn" for a block i.e. from when it spawns to when it stops
     while not block.done:
-        screen.fill((0, 0, 0))
-
         block.move()
 
         for event in pygame.event.get():

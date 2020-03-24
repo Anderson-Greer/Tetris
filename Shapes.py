@@ -3,46 +3,61 @@
 
 import pygame
 
-# pygame.draw.rect(screen, BLUE, (sx, sy, snake_size, snake_size))
-class block:
-    rectSize = 25
 
-class straightBlock:
+class Block:
 
-    yvalue = 0
-    startingx = 0
+    def __init__(self, color):
+        self.width = 250
+        self.height = 500
+        self.screen = pygame.display.set_mode((self.width, self.height))  # Creates the GUI for the game
+        self.color = color  # Color of each block
+        self.RECT_SIZE = 25  # Constant for the size of each "pixel"
+        self.coordinates = []  # A list of tuples corresponding to points on the game board
+        self.num_of_blocks = 0
+
+        self.screen.fill((0, 0, 0))  # Makes the screen black
+
+    def move_down(self):
+        self.screen.fill((0, 0, 0))  # Makes the screen black
+
+        for i in range(0, self.num_of_blocks):
+            pygame.draw.rect(self.screen, self.color, (self.coordinates[i][1] * 25, self.coordinates[i][0] * 25,
+                                                       self.RECT_SIZE, self.RECT_SIZE))
+
+        for coord in self.coordinates:
+            coord[1] += 1
+
+
+class StraightBlock(Block):
+
+    y_value = 0
+    starting_x = 0
     done = False
 
-    def __init__(self, screen, rectSize, color):
-        self.screen = screen
-        self.rect_size = rectSize
-        self.color = color
-
-    def drawShape(self):
-        self.startingx = 200
-        for i in range(0, 4):
-            pygame.draw.rect(self.screen, self.color, (self.startingx + (25 * i), 0, self.rect_size, self.rect_size))
-
     def move(self):
-
+        self.screen.fill((0, 0, 0))
         for i in range(0, 4):
-            pygame.draw.rect(self.screen, self.color, ((75 + 25 * i), self.yvalue, self.rect_size, self.rect_size))
+            pygame.draw.rect(self.screen, self.color, ((75 + 25 * i), self.y_value, self.RECT_SIZE, self.RECT_SIZE))
 
-        self.yvalue += 25
-        print(self.yvalue)
+        self.y_value += 25
+        print(self.y_value)
 
 
-class leftL:
+class LeftL:
     pass
 
-class rightL:
+
+class RightL:
     pass
 
-class square:
+
+class Square:
     pass
 
-class leftZ:
+
+class LeftZ:
     pass
 
-class rightZ:
+
+class RightZ:
     pass
