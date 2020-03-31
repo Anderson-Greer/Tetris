@@ -77,7 +77,7 @@ while not game_over:
     block = select_block()
     blocks.append(block)
 
-    # Runs each "turn" for a block i.e. from when it spawns to when it stops
+    # Runs each "turn" for a block i.e. from when it is created to when it stops
     while not block.done:
         update_gameboard()
         print_gameboard()
@@ -102,3 +102,6 @@ while not game_over:
         clock.tick(2)
 
         pygame.display.update()
+
+    game_over = True
+    
